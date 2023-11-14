@@ -1,0 +1,57 @@
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    UserName VARCHAR(255) UNIQUE NOT NULL,
+    UserType ENUM('Host', 'Guest') NOT NULL,
+    Email VARCHAR(255) UNIQUE NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    ProfilePicture VARCHAR(255),
+    OtherUserInfo VARCHAR(255)
+);
+
+
+CREATE TABLE Hosts (
+    HostID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    UserID INT NOT NULL,
+    OtherHostInfo VARCHAR(255),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+
+CREATE TABLE Rooms (
+    RoomID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    HostID INT NOT NULL,
+    RoomName VARCHAR(255),
+    Description TEXT,
+    MaxResidents INT DEFAULT 2,
+    PricePerNight DECIMAL(10, 2) NOT NULL,
+    HasAC BOOLEAN NOT NULL DEFAULT TRUE,
+    HasRefrigerator BOOLEAN NOT NULL DEFAULT TRUE,
+    OtherRoomAttributes VARCHAR(255),
+    FOREIGN KEY (HostID) REFERENCES Hosts(HostID)
+);
+
+
+CREATE TABLE Reservations (
+    ReservationID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    GuestID INT NOT NULL,
+    RoomID INT NOT NULL,
+    CheckInDate DATE NOT NULL,
+    CheckOutDate DATE NOT NULL,
+    TotalPrice DECIMAL(10, 2) NOT NULL,
+    Status ENUM('Reserved', 'Paid', 'Completed') NOT NULL,
+    FOREIGN KEY (GuestID) REFERENCES Users(UserID),
+    FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
+);
+
+
+CREATE TABLE Reviews (
+    ReviewID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    GuestID INT NOT NULL,
+    RoomID INT NOT NULL,
+    Rating INT CHECK (Rating >= 1 AND Rating <= 5),
+    ReviewText TEXT,
+    DatePosted TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY (GuestID) REFERENCES Users(UserID),
+    FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
+);
+
