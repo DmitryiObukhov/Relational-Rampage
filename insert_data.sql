@@ -1,7 +1,7 @@
-INSERT INTO Users (UserName, UserType, Email, Password, ProfilePicture, OtherUserInfo)
+INSERT INTO Users (UserName, UserType, Email, Password, ProfilePicture)
 VALUES
-(NULL, 'JohnDoe', 'Guest', 'john.doe@email.com', 'hashed_password', 'https://www.freepik.com/free-psd/3d-illustration-person-with-sunglasses_27470334.htm#query=avatar&position=0&from_view=keyword&track=sph'),
-(NULL, 'Host123', 'Host', 'host123@email.com', 'hashed_password', 'https://www.freepik.com/free-psd/3d-illustration-person-with-sunglasses_27470334.htm#query=avatar&position=0&from_view=keyword&track=sph');
+('JohnDoe', 'Guest', 'john.doe@email.com', 'hashed_password', 'https://www.freepik.com/free-psd/3d-illustration-person-with-sunglasses_27470334.htm#query=avatar&position=0&from_view=keyword&track=sph'),
+('Host123', 'Host', 'host123@email.com', 'hashed_password', 'https://www.freepik.com/free-psd/3d-illustration-person-with-sunglasses_27470334.htm#query=avatar&position=0&from_view=keyword&track=sph');
 
 
 INSERT INTO Hosts (UserID, OtherHostInfo)
@@ -16,9 +16,10 @@ VALUES
 
 INSERT INTO Reservations (GuestID, RoomID, CheckInDate, CheckOutDate, TotalPrice, Status)
 VALUES
-(1, LAST_INSERT_ID(), '2023-01-01', '2023-01-05', 200.00, 'Confirmed');
+(LAST_INSERT_ID(), LAST_INSERT_ID(), '2023-01-01', '2023-01-05', 200.00, 'Confirmed');
 
 
 INSERT INTO Reviews (GuestID, RoomID, Rating, ReviewText, DatePosted)
 VALUES
-(1, LAST_INSERT_ID(), 5, 'Great experience!', CURRENT_TIMESTAMP);
+(LAST_INSERT_ID(), LAST_INSERT_ID(), 5, 'Great experience!', CURRENT_TIMESTAMP);
+
